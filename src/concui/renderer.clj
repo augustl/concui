@@ -22,7 +22,8 @@
   (swap! (:view-tempid renderer) dec))
 
 (defn resolve-view-tempid
-  [tr view-tempid])
+  [tx view-tempid]
+  (get tx view-tempid))
 
 (defn create-ids-for-tempids
   [tempids]
