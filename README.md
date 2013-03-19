@@ -2,7 +2,7 @@
 
 Truly concurrent UI framework, completely free of mutable values.
 
-Check out src/concui/runner.clj for an example.
+Check out src/concui/cli_dev.clj for an example.
 
 ## License
 
