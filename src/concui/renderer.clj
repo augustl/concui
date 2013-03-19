@@ -82,9 +82,11 @@
        (validate-tempids @tempids @(:views renderer)))
       @tempids)))
 
-(defn draw-command-list
-  [cl]
-  (cl))
+(defn draw-gl-command
+  "So yeah. Not sure if we want to do anything here other than
+   just calling it, such as wrapping to create OpenGL draw lists etc."
+  [f]
+  (f))
 
 (defn render
   [renderer]
@@ -100,4 +102,4 @@
         parents-idx (:parents-idx renderer-val)
         bg-color (:bg-color renderer-val)]
     (GL11/glClearColor (:r bg-color) (:b bg-color) (:g bg-color) (:a bg-color))
-    (draw-command-list (:cl root-view))))
+    (draw-gl-command (:gl root-view))))

@@ -23,10 +23,10 @@
            [;; pos-x and pox-y is actually ignored now.
             [:view/attr root-view-tempid :pos-x 20]
             [:view/attr root-view-tempid :pos-y 20]
-            ;; The cl is a function that executes OpenGL commands. This
+            ;; :gl is a function that executes OpenGL commands. This
             ;; can be any command, such as texture mapping polygons to
-            ;; render a button.
-            [:view/attr root-view-tempid :cl (fn []
+            ;; render a button, or drawing a triangle, or tits.
+            [:view/attr root-view-tempid :gl (fn []
                                                (GL11/glColor3f (rand) (rand) (rand))
                                                (GL11/glBegin GL11/GL_TRIANGLES)
                                                (GL11/glVertex2i 0 0)
@@ -42,9 +42,9 @@
   (comment
     ;; Can be changed at any time.
     @(r/transact rdr [[:renderer/bg-color (r/color 0 1 1)]])
-    ;; We use the resolved root view id to update the cl (command list function)
+    ;; We use the resolved root view id to update the gl (function that calls OpenGL stuffs)
     ;; of the view to change the colors and position of the triangle.
-    @(r/transact rdr [[:view/attr root-view-id :cl (fn []
+    @(r/transact rdr [[:view/attr root-view-id :gl (fn []
                                                      (GL11/glColor3f 1 (rand) 1)
                                                      (GL11/glBegin GL11/GL_TRIANGLES)
                                                      (GL11/glVertex2i 0 0)
