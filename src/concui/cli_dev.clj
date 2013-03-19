@@ -3,8 +3,6 @@
             concui.runner)
   (:gen-class))
 
-(def cake (atom 0))
-
 (defn -main
   [& args]
   (let [repl (clojure.tools.nrepl.server/start-server :port 0)]
