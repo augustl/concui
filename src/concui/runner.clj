@@ -62,6 +62,7 @@
   [width height]
   (GL11/glMatrixMode GL11/GL_PROJECTION)
   (GL11/glLoadIdentity)
+  ;; This isn't right. Need to figure out how OpenGL's coordinate system actually works :)
   (let [left 0
         right width
         top height
