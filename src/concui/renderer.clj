@@ -102,4 +102,6 @@
         parents-idx (:parents-idx renderer-val)
         bg-color (:bg-color renderer-val)]
     (GL11/glClearColor (:r bg-color) (:b bg-color) (:g bg-color) (:a bg-color))
+    (GL11/glClear (bit-or GL11/GL_COLOR_BUFFER_BIT GL11/GL_DEPTH_BUFFER_BIT))
+    ;; TODO: Child views and shit.
     (draw-gl-command (:gl root-view))))

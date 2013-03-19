@@ -24,13 +24,6 @@
   (GL11/glMatrixMode GL11/GL_MODELVIEW)
   (GL11/glLoadIdentity))
 
-(defn render-frame
-  [rdr]
-  (let [bgcolor @(:bg-color rdr)]
-    (GL11/glClearColor (:r bgcolor) (:b bgcolor) (:g bgcolor) (:a bgcolor)))
-  (GL11/glClear (bit-or GL11/GL_COLOR_BUFFER_BIT GL11/GL_DEPTH_BUFFER_BIT))
-  (r/render rdr))
-
 ;; This is just one of many ways we can actually run this. Essentially the renderer
 ;; is just a bunch of OpenGL calls, so we're free to not use the default lwjgl loop
 ;; if we don't want to. Such as having multiple rendering threads.
@@ -51,7 +44,7 @@
            (Display/sync 2)
            (if (Display/wasResized)
              (set-clipping-volume (Display/getWidth) (Display/getHeight)))
-           (render-frame rdr)
+           (r/render rdr)
            (Display/update))
          (Display/destroy)))
     (.setName "Render loop ")
