@@ -10,6 +10,8 @@
 (def rdr (r/create-renderer))
 
 (let [root-view-tempid (r/view-tempid rdr)
+      child-a-tempid (r/view-tempid rdr)
+      child-b-tempid (r/view-tempid rdr)
       ;; To change the view state, use a transaction. This ends up
       ;; as changing multiple values via Clojure STM (refs, and dosync),
       ;; and updating some indexes etc. You could just mamually update
@@ -33,6 +35,23 @@
                                                (GL11/glVertex2i 100 0)
                                                (GL11/glVertex2i 50 50)
                                                (GL11/glEnd))]
+
+            [:view/attr child-a-tempid :gl (fn []
+                                             (GL11/glColor3f 1 (rand) 0.5)
+                                             (GL11/glBegin GL11/GL_TRIANGLES)
+                                             (GL11/glVertex2i 0 0)
+                                             (GL11/glVertex2i 50 0)
+                                             (GL11/glVertex2i 20 10)
+                                             (GL11/glEnd))]
+            [:view/attr child-b-tempid :gl (fn []
+                                             (GL11/glColor3f (rand) 1 0.5)
+                                             (GL11/glBegin GL11/GL_TRIANGLES)
+                                             (GL11/glVertex2i 0 0)
+                                             (GL11/glVertex2i 60 0)
+                                             (GL11/glVertex2i 70 20)
+                                             (GL11/glEnd))]
+            [:view/append-child root-view-tempid child-a-tempid]
+            [:view/append-child root-view-tempid child-b-tempid]
             ;; Some properties are about the renderer itself, such as the
             ;; view that is the root view, and the bg color of the entire
             ;; viewport.

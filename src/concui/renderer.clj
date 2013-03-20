@@ -39,6 +39,7 @@
       (do
         (let [view-id (str (java.util.UUID/randomUUID))]
           (alter tempids assoc view-id-or-tempid view-id)
+          (alter (:views renderer) assoc-in [view-id :_id] view-id)
           view-id))))
 
 (defmulti run-fact (fn [fact tempids renderer] (first fact)))
@@ -49,6 +50,12 @@
         view-attr-key (nth fact 2)
         view-attr-val (nth fact 3)]
     (alter (:views renderer) assoc-in [view-id view-attr-key] view-attr-val)))
+
+(defmethod run-fact :view/append-child
+  [fact tempids renderer]
+  (let [parent-view-id (get-view-id (nth fact 1) tempids renderer)
+        child-view-id (get-view-id (nth fact 2) tempids renderer)]
+    (alter (:children-idx renderer) update-in [parent-view-id] (fn [children] (conj children child-view-id)))))
 
 (defmethod run-fact :renderer/root-view
   [fact tempids renderer]
@@ -82,11 +89,16 @@
        (validate-tempids @tempids @(:views renderer)))
       @tempids)))
 
-(defn draw-gl-command
-  "So yeah. Not sure if we want to do anything here other than
-   just calling it, such as wrapping to create OpenGL draw lists etc."
-  [f]
-  (f))
+(defn draw-view
+  [view]
+  ((:gl view)))
+
+;; TODO: Stack overflow?
+(defn draw-view-tree
+  [view views children-idx]
+  (draw-view view)
+  (doseq [child-id (get children-idx (:_id view))]
+    (draw-view-tree (get views child-id) views children-idx)))
 
 (defn render
   [renderer]
@@ -103,5 +115,4 @@
         bg-color (:bg-color renderer-val)]
     (GL11/glClearColor (:r bg-color) (:b bg-color) (:g bg-color) (:a bg-color))
     (GL11/glClear (bit-or GL11/GL_COLOR_BUFFER_BIT GL11/GL_DEPTH_BUFFER_BIT))
-    ;; TODO: Child views and shit.
-    (draw-gl-command (:gl root-view))))
+    (draw-view-tree root-view views children-idx)))
