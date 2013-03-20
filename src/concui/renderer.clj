@@ -67,10 +67,6 @@
   (let [color (nth fact 1)]
     (ref-set (:bg-color renderer) color)))
 
-(defmethod run-fact :default
-  [fact tx renderer]
-  (throw (Exception. (str "Unrecognized transaction command: " (first fact)))))
-
 (defn validate-tempids
   [tempids views]
   (let [non-existing-views (clojure.set/difference
