@@ -27,7 +27,7 @@
             [:view/attr root-view-tempid :pos-y 20]
             ;; :gl is a function that executes OpenGL commands. This
             ;; can be any command, such as texture mapping polygons to
-            ;; render a button, or drawing a triangle, or tits.
+            ;; render a button, or drawing a triangle, or whatever.
             [:view/attr root-view-tempid :gl (fn []
                                                (GL11/glColor3f (rand) (rand) (rand))
                                                (GL11/glBegin GL11/GL_TRIANGLES)
