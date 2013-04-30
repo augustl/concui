@@ -8,4 +8,4 @@ Check out src/concui/cli_dev.clj for an example.
 
 Copyright © 2013 August Lilleaas
 
-Distributed under the BSD 3-clause license
+Distributed under the GPLv3 license
