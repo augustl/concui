@@ -1,13 +1,12 @@
-(ns concui.cli-dev
-  (:require clojure.tools.nrepl.server
-            concui.runner
-            [concui.renderer :as r])
-  (:import [org.lwjgl.opengl
-            GL11])
-  (:gen-class))
+(require 'clojure.tools.nrepl.server)
+(require 'concui.runner)
+(require '[concui.renderer :as r])
+(import [org.lwjgl.opengl GL11])
 
 ;; The state of the UI
 (def rdr (r/create-renderer))
+
+(concui.runner/run rdr)
 
 (let [root-view-tempid (r/view-tempid rdr)
       child-a-tempid (r/view-tempid rdr)
@@ -70,9 +69,3 @@
                                                      (GL11/glVertex2i 120 0)
                                                      (GL11/glVertex2i 70 50)
                                                      (GL11/glEnd))]])))
-
-(defn -main
-  [& args]
-  (let [repl (clojure.tools.nrepl.server/start-server :port 0)]
-    (println (str "Repl started at " (:port repl))))
-  (concui.runner/run rdr))
