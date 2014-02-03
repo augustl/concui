@@ -1,13 +1,5 @@
 # concui
 
-Truly concurrent UI framework, completely free of mutable values.
+This project is abandoned. See the previous commit for the code. The code isn't really that interesting though, it's just a couple of hundred lines of a pretty lame experiment using the STM that wouldn't go anywhere. Most of the time was spent figuring out OpenGL.
 
-Very much a work in progress. See the introductory blog post, http://augustl.com/blog/2013/truly_concurrent_user_interfaces/
-
-NOTE: Just because I haven't commited in a while doesn't mean I've abandoned the project :) I plan to continue hacking on this, I just haven't had time the last couple of months.
-
-## License
-
-Copyright © 2013 August Lilleaas
-
-Distributed under the GPLv3 license
+It has been superseded by https://github.com/augustl/halt/, an operating system (why stop at the UI?).
